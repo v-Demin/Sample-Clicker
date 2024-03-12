@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -5,10 +6,16 @@ using Zenject;
 public class EnemyView : MonoBehaviour, IInitializable, IEnemyValueHandler
 {
     [Inject] private readonly EventHolder _eventHolder;
+    
+    [Header("SliderSettings")]
     [SerializeField] private Slider _healthSlider;
+    [SerializeField] private float _baseTime;
+    [SerializeField] private Ease _ease;
+
+    private Tween _hpTweenCash;
 
     private Enemy _enemy;
-    
+
     [Inject]
     public void Initialize()
     {
@@ -18,21 +25,23 @@ public class EnemyView : MonoBehaviour, IInitializable, IEnemyValueHandler
     public void HandleEnemySpawned(Enemy enemy)
     {
         _enemy = enemy;
-        Refresh(1f);
+        _hpTweenCash.Kill();
+        _healthSlider.value = 1f;
     }
 
     public void HandleEnemyHealthChanged(float totalHealth)
     {
-        Refresh(totalHealth / _enemy.MaxHealth);
+        TakeDamage(totalHealth / _enemy.MaxHealth);
     }
 
     public void HandleEnemyDied(Enemy enemy)
     {
-        
+
     }
 
-    private void Refresh(float healthProportion)
+    private void TakeDamage(float healthProportion)
     {
-        _healthSlider.value = healthProportion;
+        _hpTweenCash = DOVirtual.Float(_healthSlider.value, healthProportion, _baseTime, value => _healthSlider.value = value)
+            .SetEase(_ease);
     }
 }

@@ -4180,6 +4180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthSlider: {fileID: 103110729}
+  _baseTime: 0.12
+  _ease: 12
 --- !u!1 &940240513
 GameObject:
   m_ObjectHideFlags: 0
