@@ -7,8 +7,16 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<EventHolder>()
             .FromNew()
             .AsSingle();
-
-        Container.BindInterfacesAndSelfTo<MainCycle>()
+        
+        Container.BindInterfacesAndSelfTo<Clicker>()
+            .FromNew()
+            .AsSingle();
+        
+        Container.BindInterfacesAndSelfTo<Wallet>()
+            .FromNew()
+            .AsSingle();
+        
+        Container.BindInterfacesAndSelfTo<EnemyHolder>()
             .FromNew()
             .AsSingle();
     }
