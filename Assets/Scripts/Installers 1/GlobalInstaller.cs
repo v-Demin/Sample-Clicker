@@ -12,11 +12,15 @@ public class GlobalInstaller : MonoInstaller
             .FromNew()
             .AsSingle();
         
-        Container.BindInterfacesAndSelfTo<BattleSceneInitiator>()
+        Container.BindInterfacesAndSelfTo<MainMenuSceneInitiator>()
             .FromNew()
             .AsSingle();
         
         Container.BindInterfacesAndSelfTo<MapSceneInitiator>()
+            .FromNew()
+            .AsSingle();
+        
+        Container.BindInterfacesAndSelfTo<BattleSceneInitiator>()
             .FromNew()
             .AsSingle();
 

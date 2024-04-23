@@ -4,17 +4,19 @@ using Zenject;
 public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleRequestHandler, IBattleAbortedHandler, IBattleEndedHandler
 {
     private readonly EventBus _globalBus;
-    private readonly BattleSceneInitiator _battleSceneInitiator;
+    private readonly MainMenuSceneInitiator _menuSceneInitiator;
     private readonly MapSceneInitiator _mapSceneInitiator;
+    private readonly BattleSceneInitiator _battleSceneInitiator;
 
     private CycleData _cycleData = new CycleData();
     
     [Inject]
-    private MainCycle(EventBus globalBus, BattleSceneInitiator battleSceneInitiator, MapSceneInitiator mapSceneInitiator)
+    private MainCycle(EventBus globalBus, BattleSceneInitiator battleSceneInitiator, MapSceneInitiator mapSceneInitiator, MainMenuSceneInitiator menuSceneInitiator)
     {
         _globalBus = globalBus;
         _battleSceneInitiator = battleSceneInitiator;
         _mapSceneInitiator = mapSceneInitiator;
+        _menuSceneInitiator = menuSceneInitiator;
     }
 
     public void Initialize()
@@ -34,7 +36,7 @@ public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleRequestHandl
 
     public void HandleBattleAbort()
     {
-        "Кто, нахер?".Log(Color.blue);
+        _menuSceneInitiator.LoadScene();
     }
 
     public void HandleBattleEnded()
