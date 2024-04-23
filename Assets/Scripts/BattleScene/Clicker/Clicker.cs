@@ -2,7 +2,7 @@ using Zenject;
 
 public class Clicker : IInitializable, IEnemyClickHandler, IClickerUpdateHandler
 {
-    [Inject] private readonly EventHolder _eventHolder;
+    [Inject] private readonly EventBus _eventBus;
     [Inject] private readonly Wallet _wallet;
 
     public float ClickDamage => _currentLevel * 2;
@@ -11,13 +11,13 @@ public class Clicker : IInitializable, IEnemyClickHandler, IClickerUpdateHandler
     
     public void Initialize()
     {
-        _eventHolder.Subscribe(this);
-        _eventHolder.RaiseEvent<ICliclerValuesHandler>(handler => handler.HandleClickerInitialized(_currentLevel, ClickDamage, NextPrice));
+        _eventBus.Subscribe(this);
+        _eventBus.RaiseEvent<ICliclerValuesHandler>(handler => handler.HandleClickerInitialized(_currentLevel, ClickDamage, NextPrice));
     }
     
     public void HandleEnemyClick()
     {
-        _eventHolder.RaiseEvent<IEnemyDamageHandler>(handler => handler.HandleTakeDamage(ClickDamage));
+        _eventBus.RaiseEvent<IEnemyDamageHandler>(handler => handler.HandleTakeDamage(ClickDamage));
     }
 
     public void TryUpgrade(int times = 1)
@@ -26,7 +26,7 @@ public class Clicker : IInitializable, IEnemyClickHandler, IClickerUpdateHandler
         {
             if (!CheckIsUpdateAvailable()) return;
             
-            _eventHolder.RaiseEvent<IMoneySpentHandler>(handler => handler.HandleTryToSpendMoney(NextPrice));
+            _eventBus.RaiseEvent<IMoneySpentHandler>(handler => handler.HandleTryToSpendMoney(NextPrice));
             Upgrade();
         }
     }
@@ -47,6 +47,6 @@ public class Clicker : IInitializable, IEnemyClickHandler, IClickerUpdateHandler
     private void Upgrade()
     {
         _currentLevel++;
-        _eventHolder.RaiseEvent<ICliclerValuesHandler>(handler => handler.HandleClickerLevelUpdated(_currentLevel, ClickDamage, NextPrice));
+        _eventBus.RaiseEvent<ICliclerValuesHandler>(handler => handler.HandleClickerLevelUpdated(_currentLevel, ClickDamage, NextPrice));
     }
 }

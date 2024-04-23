@@ -4,7 +4,7 @@ using Zenject;
 
 public class ClickerUI : MonoBehaviour, IInitializable, ICliclerValuesHandler
 {
-    [Inject] private readonly EventHolder _eventHolder;
+    [Inject] private readonly EventBus _eventBus;
 
     [SerializeField] private TextMeshProUGUI _levelLabel;
     [SerializeField] private TextMeshProUGUI _damageLabel;
@@ -13,12 +13,12 @@ public class ClickerUI : MonoBehaviour, IInitializable, ICliclerValuesHandler
     [Inject]
     public void Initialize()
     {
-        _eventHolder.Subscribe(this);
+        _eventBus.Subscribe(this);
     }
 
     public void HandleUpdateClicked()
     {
-        _eventHolder.RaiseEvent<IClickerUpdateHandler>(handler => handler.TryUpgrade());
+        _eventBus.RaiseEvent<IClickerUpdateHandler>(handler => handler.TryUpgrade());
     }
 
     public void HandleClickerInitialized(int level, float damage, int nextPrice)

@@ -3,11 +3,11 @@ using Zenject;
 
 public class EnemyClickZone : MonoBehaviour
 {
-    [Inject] private readonly EventHolder _eventHolder;
+    [Inject] private readonly EventBus _eventBus;
 
     public void HandleClick()
     {
         "Клякнули".Log(Color.cyan);
-        _eventHolder.RaiseEvent<IEnemyClickHandler>(handler => handler.HandleEnemyClick());
+        _eventBus.RaiseEvent<IEnemyClickHandler>(handler => handler.HandleEnemyClick());
     }
 }

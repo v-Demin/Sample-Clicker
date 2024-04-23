@@ -4,14 +4,14 @@ using Zenject;
 
 public class MoneyPanel : MonoBehaviour, IInitializable, IMoneyValueHandler
 {
-    [Inject] private readonly EventHolder _eventHolder;
+    [Inject] private readonly EventBus _eventBus;
     
     [SerializeField] private TextMeshProUGUI _moneyText;
     
     [Inject]
     public void Initialize()
     {
-        _eventHolder.Subscribe(this);
+        _eventBus.Subscribe(this);
     }
 
     public void HandleMoneyChanged(int totalValue)

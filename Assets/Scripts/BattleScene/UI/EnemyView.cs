@@ -5,7 +5,7 @@ using Zenject;
 
 public class EnemyView : MonoBehaviour, IInitializable, IEnemyValueHandler
 {
-    [Inject] private readonly EventHolder _eventHolder;
+    [Inject] private readonly EventBus _eventBus;
     
     [Header("SliderSettings")]
     [SerializeField] private Slider _healthSlider;
@@ -19,7 +19,7 @@ public class EnemyView : MonoBehaviour, IInitializable, IEnemyValueHandler
     [Inject]
     public void Initialize()
     {
-        _eventHolder.Subscribe(this);
+        _eventBus.Subscribe(this);
     }
     
     public void HandleEnemySpawned(Enemy enemy)
