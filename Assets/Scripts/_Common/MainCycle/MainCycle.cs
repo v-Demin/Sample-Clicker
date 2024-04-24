@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleRequestHandler, IBattleAbortedHandler, IBattleEndedHandler
+public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleCommonHandler, IGameCommonHanler
 {
     private readonly EventBus _globalBus;
     private readonly MainMenuSceneInitiator _menuSceneInitiator;
@@ -43,8 +43,26 @@ public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleRequestHandl
     {
         _mapSceneInitiator.Resume();
     }
+
+    public void HandleGameAborted()
+    {
+        //[Todo]: Сохранить игру(?)
+        "Пока".Log(Color.green);
+    }
+
+    public void HandleGameResumed(CycleData data)
+    {
+        _cycleData = data;
+        _mapSceneInitiator.Resume();
+    }
+
+    public void HandleGameStarted()
+    {
+        _cycleData = new CycleData();
+        _mapSceneInitiator.LoadScene();
+    }
     
-    private class CycleData
+    public class CycleData
     {
         
     }
