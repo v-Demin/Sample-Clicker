@@ -1,4 +1,4 @@
 public interface IGameResumedHanler : ISubscriber
 {
-    void HandleGameResumed(MainCycle.CycleData data);
+    void HandleGameResumed(GameCycle.CycleData data);
 }

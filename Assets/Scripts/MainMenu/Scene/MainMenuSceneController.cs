@@ -23,7 +23,7 @@ public class MainMenuSceneController : MonoBehaviour
     public void HandleNewGameBattleClicked()
     {
         //[Todo]: Обратиться к сейвам и загрузить
-        _globalEventBus.RaiseEvent<IGameResumedHanler>(handler => handler.HandleGameResumed(new MainCycle.CycleData()));
+        _globalEventBus.RaiseEvent<IGameResumedHanler>(handler => handler.HandleGameResumed(new GameCycle.CycleData()));
     }
 
     public void HandleSettingsButtonClicked()

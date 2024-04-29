@@ -24,7 +24,7 @@ public class GlobalInstaller : MonoInstaller
             .FromNew()
             .AsSingle();
 
-        Container.BindInterfacesAndSelfTo<MainCycle>()
+        Container.BindInterfacesAndSelfTo<GameCycle>()
             .FromNew()
             .AsSingle();
     }

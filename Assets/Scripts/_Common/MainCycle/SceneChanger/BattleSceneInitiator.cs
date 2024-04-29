@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class BattleSceneInitiator
@@ -9,5 +10,15 @@ public class BattleSceneInitiator
     {
         Data = data;
         SceneManager.LoadScene(SceneName);
+    }
+}
+
+public class BattleRequestData
+{
+    public List<Enemy> Enemies;
+
+    public BattleRequestData(List<Enemy> enemies)
+    {
+        Enemies = enemies;
     }
 }

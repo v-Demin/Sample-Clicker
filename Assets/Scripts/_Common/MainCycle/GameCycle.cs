@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleCommonHandler, IGameCommonHanler
+public class GameCycle : IInitializable, IPlayerLoseHandler, IBattleCommonHandler, IGameCommonHanler
 {
     private readonly EventBus _globalBus;
     private readonly MainMenuSceneInitiator _menuSceneInitiator;
@@ -11,7 +11,7 @@ public class MainCycle : IInitializable, IPlayerLoseHandler, IBattleCommonHandle
     private CycleData _cycleData = new CycleData();
     
     [Inject]
-    private MainCycle(EventBus globalBus, BattleSceneInitiator battleSceneInitiator, MapSceneInitiator mapSceneInitiator, MainMenuSceneInitiator menuSceneInitiator)
+    private GameCycle(EventBus globalBus, BattleSceneInitiator battleSceneInitiator, MapSceneInitiator mapSceneInitiator, MainMenuSceneInitiator menuSceneInitiator)
     {
         _globalBus = globalBus;
         _battleSceneInitiator = battleSceneInitiator;
